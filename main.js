@@ -1,27 +1,45 @@
-import Phaser, { Physics } from "phaser";
+import Phaser, { Math } from "phaser";
 import Player from "./Player";
+// import Entity from "./Entity";
+import CollisionSystem from "./CollisionSystem";
+import InputSystem from "./InputSystem";
+import createLevel1 from "./initialLevel";
 
+/** @type {Player} */
 let player;
-let player2;
-let cursors;
+
+/** @type {CollisionSystem} */
+let collisionSystem;
+
+/** @type {InputSystem} */
+let inputSystem;
 
 function preload() {
-  this.load.spritesheet('player', './assets/player.png', {frameWidth: 20, frameHeight: 29});
+  this.load.image("background", "./assets/sand2.png");
+  this.load.multiatlas(
+    "textures",
+    "./assets/textures.json",
+    "./assets/"
+  );
+  this.load.spritesheet("player", "./assets/player.png", {
+    frameWidth: 20,
+    frameHeight: 29,
+  });
 }
 
 function create() {
-  player = new Player(this,  300, 300, 'player');
-  player2 = this.physics.add.staticGroup();
-  player2.create(100, 200, 'player').refreshBody();
+  this.add.image(0, 0, "background").setScale(4);
 
-  cursors = this.input.keyboard.createCursorKeys();
+  inputSystem = new InputSystem(this.input, "Z", "X");
 
-  this.physics.add.collider(player.player, player2);
+  player = new Player(this.physics, inputSystem, 300, 300, "player");
 
+  collisionSystem = new CollisionSystem(this.physics, player);
+  createLevel1(this, collisionSystem);
 }
-
 function update() {
-  player.update(cursors);
+  player.update();
+  collisionSystem.update();
 }
 
 const game = new Phaser.Game({
@@ -31,8 +49,8 @@ const game = new Phaser.Game({
   scale: { mode: Phaser.Scale.FIT },
   pixelArt: true,
   physics: {
-    default: 'arcade',
-    arcade: { debug: true }
+    default: "arcade",
+    arcade: { debug: true },
   },
-  scene: { preload, create, update }
-})
+  scene: { preload, create, update },
+});

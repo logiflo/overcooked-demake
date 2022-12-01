@@ -22,7 +22,7 @@ class Order {
     this.expired = false;
   }
 
-  update() {
+  update(audioManager) {
     this.cnt++;
 
     this.bar.scaleX = (this.prepareTime - this.cnt) / this.prepareTime;
@@ -36,6 +36,7 @@ class Order {
       this.meal.sprite.destroy();
       this.bar.destroy();
       this.expired = true;
+      audioManager.playFailure();
     }
   }
 
@@ -55,10 +56,13 @@ class Order {
 }
 
 class Orders {
-  constructor(game) {
+  constructor(game, audioManager, points) {
     this.orders = [];
+    this.expiredOrders = []
     this.game = game;
     this.cnt = 0;
+    this.audioManager = audioManager;
+    this.points = points;
   }
   static possibleOrders = ["items_6", "items_5", "items_4"];
 
@@ -66,13 +70,24 @@ class Orders {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  update() {
+  update(scene) {
     this.cnt += 1;
 
-    if (this.cnt % 300 === 0 && this.cnt < 3000) {
+    if (this.cnt % 400 === 0 && this.cnt < 4000) {
       const random = possibleOrders[this.randomIntFromInterval(0, 2)];
       const order = new Order(this.game, random);
       this.orders.push(order);
+    }
+
+    this.expiredOrders = this.orders.filter((order) => order.isExpired());
+    if (this.expiredOrders.length) {
+      this.points -= 500 * this.expiredOrders.length;
+    }
+
+    if (this.cnt > 4000 && this.orders.length === 0) {
+      this.audioManager.stopRestaurantSong();
+      console.log(this.points);
+      scene.start("end", {points: this.points});
     }
 
     this.orders = this.orders.filter((order) => !order.isExpired());
@@ -81,7 +96,7 @@ class Orders {
     let pos = 30;
     this.orders.forEach((order) => {
       order.setPosX(pos);
-      order.update();
+      order.update(this.audioManager);
       pos += 34;
     });
   }
@@ -98,8 +113,11 @@ class Orders {
     const foundPos = this.searchFirst(orderName);
     if (foundPos === -1) return false;
 
+    console.log(this.orders[foundPos].bar.scaleX);
+    this.points += 1500 * this.orders[foundPos].bar.scaleX;
     this.orders[foundPos].destroy();
     this.orders.splice(foundPos, 1);
+    this.audioManager.playReady();
 
     return true;
   }

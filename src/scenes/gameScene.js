@@ -5,6 +5,7 @@ import InputSystem from "../classes/InputSystem";
 import createLevel1 from "../levels/initialLevel";
 import Orders from "../classes/Orders";
 import AudioManager from "../classes/AudioManager";
+import Points from "../classes/Points";
 
 class Game extends Phaser.Scene {
   constructor() {
@@ -24,6 +25,7 @@ class Game extends Phaser.Scene {
     this.load.audio("restaurant", "./assets/restaurant.ogg");
     this.load.audio("blender", "./assets/blender_sfx.ogg");
     this.load.audio("ready", "./assets/ready_sfx.ogg");
+    this.load.audio("failure", "./assets/buzzer.ogg");
   }
 
   create() {
@@ -32,6 +34,7 @@ class Game extends Phaser.Scene {
 
     /** @type {AudioManager} */
     this.audioManager = new AudioManager(this);
+    this.audioManager.playRestaurantSong();
 
     /** @type {InputSystem} */
     this.inputSystem = new InputSystem(this.input, "Z", "X");
@@ -44,16 +47,16 @@ class Game extends Phaser.Scene {
 
     createLevel1(this, this.collisionSystem, this.audioManager);
 
-    this.orders = new Orders(this);
+    this.points = 0;
 
-    this.audioManager.playRestaurantSong();
+    /** @type {Orders} */
+    this.orders = new Orders(this, this.audioManager, this.points);
 
-    // this.time.events.repeat(Phaser.Timer.SECOND * 2, 10, orders.get_random, this);
   }
 
   update() {
     this.player.update();
-    this.orders.update();
+    this.orders.update(this.scene);
     this.collisionSystem.update(this.physics, this.orders);
   }
 }

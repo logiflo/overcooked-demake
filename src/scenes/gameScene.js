@@ -2,7 +2,7 @@ import Phaser, { Math } from "phaser";
 import Player from "../classes/Player";
 import CollisionSystem from "../classes/CollisionSystem";
 import InputSystem from "../classes/InputSystem";
-import createLevel1 from "../../initialLevel";
+import createLevel1 from "../levels/initialLevel";
 import Orders from "../classes/Orders";
 import AudioManager from "../classes/AudioManager";
 

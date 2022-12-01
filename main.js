@@ -1,9 +1,4 @@
 import Phaser, { Math } from "phaser";
-// import Player from "./Player";
-// import Entity from "./Entity";
-// import CollisionSystem from "./src/classes/CollisionSystem";
-// import InputSystem from "./src/classes/InputSystem";
-// import createLevel1 from "./initialLevel";
 import Game from "./src/scenes/gameScene";
 import Start from "./src/scenes/startScene";
 

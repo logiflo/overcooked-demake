@@ -1,4 +1,4 @@
-import { Entity } from "./Entity";
+import Entity from "./Entity";
 import { BarColors } from "./Globals";
 
 const possibleOrders = ["items_6", "items_5", "items_4"];

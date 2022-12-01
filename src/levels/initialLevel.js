@@ -1,4 +1,4 @@
-import { Entity } from "../classes/Entity";
+import Entity from "../classes/Entity";
 import Kitchen from "../classes/Kitchen";
 import { TypeEntity } from "../classes/Globals";
 

@@ -1,46 +1,11 @@
 import Phaser, { Math } from "phaser";
-import Player from "./Player";
+// import Player from "./Player";
 // import Entity from "./Entity";
-import CollisionSystem from "./CollisionSystem";
-import InputSystem from "./InputSystem";
-import createLevel1 from "./initialLevel";
-
-/** @type {Player} */
-let player;
-
-/** @type {CollisionSystem} */
-let collisionSystem;
-
-/** @type {InputSystem} */
-let inputSystem;
-
-function preload() {
-  this.load.image("background", "./assets/sand2.png");
-  this.load.multiatlas(
-    "textures",
-    "./assets/textures.json",
-    "./assets/"
-  );
-  this.load.spritesheet("player", "./assets/player.png", {
-    frameWidth: 20,
-    frameHeight: 29,
-  });
-}
-
-function create() {
-  this.add.image(0, 0, "background").setScale(4);
-
-  inputSystem = new InputSystem(this.input, "Z", "X");
-
-  player = new Player(this.physics, inputSystem, 300, 300, "player");
-
-  collisionSystem = new CollisionSystem(this.physics, player);
-  createLevel1(this, collisionSystem);
-}
-function update() {
-  player.update();
-  collisionSystem.update();
-}
+// import CollisionSystem from "./src/classes/CollisionSystem";
+// import InputSystem from "./src/classes/InputSystem";
+// import createLevel1 from "./initialLevel";
+import Game from "./src/scenes/gameScene";
+import Start from "./src/scenes/startScene";
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -52,5 +17,5 @@ const game = new Phaser.Game({
     default: "arcade",
     arcade: { debug: true },
   },
-  scene: { preload, create, update },
+  scene: [ Start, Game ],
 });

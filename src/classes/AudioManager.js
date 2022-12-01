@@ -3,6 +3,7 @@ class AudioManager {
     this.restaurantSong = game.sound.add("restaurant");
     this.readySound = game.sound.add("ready");
     this.blenderSound = game.sound.add("blender");
+    this.orderFailureSound = game.sound.add("failure");
   }
 
   playRestaurantSong() {
@@ -28,6 +29,14 @@ class AudioManager {
 
   stopBlender() {
     this.blenderSound.stop();
+  }
+
+  playFailure() {
+    this.orderFailureSound.play();
+  }
+
+  stopFailure() {
+    this.orderFailureSound.stop();
   }
 }
 

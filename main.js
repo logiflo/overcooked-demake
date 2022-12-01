@@ -1,6 +1,7 @@
 import Phaser, { Math } from "phaser";
 import Game from "./src/scenes/gameScene";
 import Start from "./src/scenes/startScene";
+import End from "./src/scenes/endScene";
 
 const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -12,5 +13,5 @@ const game = new Phaser.Game({
     default: "arcade",
     arcade: { debug: true },
   },
-  scene: [ Start, Game ],
+  scene: [ Start, Game, End ],
 });

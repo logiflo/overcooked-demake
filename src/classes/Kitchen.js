@@ -7,7 +7,7 @@ class Kitchen extends Entity {
     super(game.physics, x, y, spriteName, frame, type, isImmovable);
 
     this.state = State.Empty;
-    this.prepareTime = 400;
+    this.prepareTime = 300;
     this.fruit = "";
     this.cnt = 0;
     this.rangeMov = 0;

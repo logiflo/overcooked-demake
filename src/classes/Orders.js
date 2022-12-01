@@ -71,7 +71,6 @@ class Orders {
 
     if (this.cnt % 300 === 0 && this.cnt < 3000) {
       const random = possibleOrders[this.randomIntFromInterval(0, 2)];
-      // const order = new Entity(this.physics, 30, 30, "textures", random);
       const order = new Order(this.game, random);
       this.orders.push(order);
     }

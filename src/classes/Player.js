@@ -45,8 +45,10 @@ class Player {
     if (this.inputSystem.cursors.left.isDown) {
       this.sprite.setVelocityX(-this.velocity);
       this.sprite.flipX = true;
+      this.handPositionX = -16;
     } else if (this.inputSystem.cursors.right.isDown) {
       this.sprite.flipX = false;
+      this.handPositionX = 16;
       this.sprite.setVelocityX(this.velocity);
     } else {
       this.sprite.setVelocityX(0);
@@ -77,7 +79,7 @@ class Player {
         physics,
         this.sprite.x + this.handPositionX,
         this.sprite.y + this.handPositionY,
-        "textures2",
+        "textures",
         objName,
         TypeEntity[type],
         false

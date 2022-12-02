@@ -6,12 +6,10 @@ class Score {
 
   getPoints(num) {
     this.points += num;
-    console.log(this.points, num);
   }
 
   losePoints(num) {
     this.points -= num;
-    console.log(this.points, num);
   }
 }
 

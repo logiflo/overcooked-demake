@@ -69,7 +69,6 @@ class Player {
 
     if (this.inputSystem.isCancelPressed()) {
       if (this.handObject) this.dropObject();
-      console.log(this.handObject);
     }
   }
 
@@ -119,8 +118,6 @@ class Player {
           if (orders.delivered(this.handObject.sprite.name)) this.dropObject();
         }
       }
-
-      console.log(entity);
     }
   }
 }

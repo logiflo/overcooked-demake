@@ -113,7 +113,6 @@ class Orders {
     const foundPos = this.searchFirst(orderName);
     if (foundPos === -1) return false;
 
-    console.log(this.orders[foundPos].bar.scaleX);
     this.score.getPoints(Math.floor(1500 * this.orders[foundPos].bar.scaleX));
     this.score.pointText.setText(this.score.points);
     this.orders[foundPos].destroy();

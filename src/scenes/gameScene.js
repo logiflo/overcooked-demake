@@ -1,11 +1,11 @@
-import Phaser, { Math } from "phaser";
+import Phaser from "phaser";
 import Player from "../classes/Player";
 import CollisionSystem from "../classes/CollisionSystem";
 import InputSystem from "../classes/InputSystem";
 import createLevel1 from "../levels/initialLevel";
 import Orders from "../classes/Orders";
 import AudioManager from "../classes/AudioManager";
-import Points from "../classes/Points";
+import Score from "../classes/Score";
 
 class Game extends Phaser.Scene {
   constructor() {
@@ -16,21 +16,20 @@ class Game extends Phaser.Scene {
     this.load.image("background", "./assets/sand2.png");
     this.load.image("buttons", "./assets/help.png");
     this.load.multiatlas("textures", "./assets/textures.json", "./assets/");
-    this.load.multiatlas("textures2", "./assets/textures2.json", "./assets/");
+    this.load.image("tick", "./assets/tick.png");
+    this.load.image("coin", "./assets/coin.png");
+
     this.load.spritesheet("player", "./assets/player.png", {
       frameWidth: 20,
       frameHeight: 29,
     });
-
-    this.load.audio("restaurant", "./assets/restaurant.ogg");
-    this.load.audio("blender", "./assets/blender_sfx.ogg");
-    this.load.audio("ready", "./assets/ready_sfx.ogg");
-    this.load.audio("failure", "./assets/buzzer.ogg");
   }
 
   create() {
-    this.add.image(0, 0, "background").setScale(4);
+    this.add.image(300, 200, "background").setScale(2);
     this.add.image(550, 150, "buttons").setScale(1);
+    this.add.sprite(40, 320, "coin").setScale(0.05).setFlipX(true);
+
 
     /** @type {AudioManager} */
     this.audioManager = new AudioManager(this);
@@ -47,10 +46,10 @@ class Game extends Phaser.Scene {
 
     createLevel1(this, this.collisionSystem, this.audioManager);
 
-    this.points = 0;
+    this.score = new Score(this);
 
     /** @type {Orders} */
-    this.orders = new Orders(this, this.audioManager, this.points);
+    this.orders = new Orders(this, this.audioManager, this.score);
 
   }
 

@@ -7,7 +7,7 @@ class Kitchen extends Entity {
     super(game.physics, x, y, spriteName, frame, type, isImmovable);
 
     this.state = State.Empty;
-    this.prepareTime = 300;
+    this.prepareTime = 275;
     this.fruit = "";
     this.cnt = 0;
     this.rangeMov = 0;
@@ -17,7 +17,7 @@ class Kitchen extends Entity {
       game.physics,
       this.sprite.x,
       this.sprite.y - 15,
-      "textures2",
+      "textures",
       "items_2",
       TypeEntity.Blender
     );
@@ -26,11 +26,15 @@ class Kitchen extends Entity {
     this.bar.setOrigin(0,0);
     this.bar.scaleX = 0;
 
+    this.tick = game.physics.add.image(this.sprite.x, this.sprite.y - 15, "tick").setScale(0.005).setImmovable(isImmovable).setVisible(false);
+
     /** @type {AudioManager} */
     this.audioManager = audioManager;
   }
 
   update() {
+    if (this.state === State.Ready) this.tick.setVisible(true);
+    if (this.state === State.Empty) this.tick.setVisible(false);
     if (this.state !== State.Busy) return;
 
     this.cnt++;

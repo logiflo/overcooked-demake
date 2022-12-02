@@ -111,7 +111,11 @@ class Orders {
 
   delivered(orderName) {
     const foundPos = this.searchFirst(orderName);
-    if (foundPos === -1) return false;
+    if (foundPos === -1) {
+      this.score.losePoints(500);
+      this.score.pointText.setText(this.score.points);
+      return true;
+    };
 
     this.score.getPoints(Math.floor(1500 * this.orders[foundPos].bar.scaleX));
     this.score.pointText.setText(this.score.points);

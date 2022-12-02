@@ -1,4 +1,4 @@
-import Phaser, { Math } from "phaser";
+import Phaser from "phaser";
 import Game from "./src/scenes/gameScene";
 import Start from "./src/scenes/startScene";
 import End from "./src/scenes/endScene";
@@ -11,7 +11,7 @@ const game = new Phaser.Game({
   pixelArt: true,
   physics: {
     default: "arcade",
-    arcade: { debug: true },
+    arcade: { debug: false },
   },
   scene: [ Start, Game, End ],
 });

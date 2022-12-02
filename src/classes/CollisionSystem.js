@@ -1,6 +1,7 @@
 import { Math, Physics } from "phaser";
 import Player from "./Player";
 import Entity from "./Entity";
+import { TypeEntity } from "./Globals";
 
 class CollisionSystem {
   /**
@@ -40,18 +41,20 @@ class CollisionSystem {
     this.entities.forEach((entity) => {
       entity.update();
 
-      const distance = Math.Distance.Between(
-        this.player.sprite.x,
-        this.player.sprite.y,
-        entity.sprite.x,
-        entity.sprite.y
-      );
+      if ([TypeEntity.Delivery, TypeEntity.Box, TypeEntity.Kitchen].includes(entity.type)) {
+        const distance = Math.Distance.Between(
+          this.player.sprite.x,
+          this.player.sprite.y,
+          entity.sprite.x,
+          entity.sprite.y
+        );
 
-      if (
-        distance <= this.player.distanceCheck &&
-        distance < nearestEntity.distance
-      ) {
-        nearestEntity = { distance, entity };
+        if (
+          distance <= this.player.distanceCheck &&
+          distance < nearestEntity.distance
+        ) {
+          nearestEntity = { distance, entity };
+        }
       }
     });
 

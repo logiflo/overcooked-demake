@@ -56,13 +56,13 @@ class Order {
 }
 
 class Orders {
-  constructor(game, audioManager, points) {
+  constructor(game, audioManager, score) {
     this.orders = [];
-    this.expiredOrders = []
+    this.expiredOrders = [];
     this.game = game;
     this.cnt = 0;
     this.audioManager = audioManager;
-    this.points = points;
+    this.score = score;
   }
   static possibleOrders = ["items_6", "items_5", "items_4"];
 
@@ -73,7 +73,7 @@ class Orders {
   update(scene) {
     this.cnt += 1;
 
-    if (this.cnt % 400 === 0 && this.cnt < 4000) {
+    if (this.cnt % 350 === 0 && this.cnt < 5000) {
       const random = possibleOrders[this.randomIntFromInterval(0, 2)];
       const order = new Order(this.game, random);
       this.orders.push(order);
@@ -81,13 +81,13 @@ class Orders {
 
     this.expiredOrders = this.orders.filter((order) => order.isExpired());
     if (this.expiredOrders.length) {
-      this.points -= 500 * this.expiredOrders.length;
+      this.score.losePoints(500 * this.expiredOrders.length);
+      this.score.pointText.setText(this.score.points);
     }
 
-    if (this.cnt > 4000 && this.orders.length === 0) {
+    if (this.cnt > 5000 && this.orders.length === 0) {
       this.audioManager.stopRestaurantSong();
-      console.log(this.points);
-      scene.start("end", {points: this.points});
+      scene.start("end", { points: this.score.points });
     }
 
     this.orders = this.orders.filter((order) => !order.isExpired());
@@ -114,7 +114,8 @@ class Orders {
     if (foundPos === -1) return false;
 
     console.log(this.orders[foundPos].bar.scaleX);
-    this.points += 1500 * this.orders[foundPos].bar.scaleX;
+    this.score.getPoints(Math.floor(1500 * this.orders[foundPos].bar.scaleX));
+    this.score.pointText.setText(this.score.points);
     this.orders[foundPos].destroy();
     this.orders.splice(foundPos, 1);
     this.audioManager.playReady();

@@ -19,7 +19,7 @@ class Player {
     this.sprite = physics.add.sprite(x, y, spriteName, frame);
     this.sprite.setSize(
       this.sprite.width - 4,
-      this.sprite.height / 2 - 2,
+      this.sprite.height / 2,
       false
     );
     this.sprite.setOffset(2, this.sprite.height / 2);

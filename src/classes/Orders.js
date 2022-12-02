@@ -113,6 +113,7 @@ class Orders {
     const foundPos = this.searchFirst(orderName);
     if (foundPos === -1) {
       this.score.losePoints(500);
+      this.audioManager.playFailure();
       this.score.pointText.setText(this.score.points);
       return true;
     };

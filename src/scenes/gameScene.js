@@ -12,19 +12,6 @@ class Game extends Phaser.Scene {
     super("game");
   }
 
-  preload() {
-    this.load.image("background", "./assets/sand2.png");
-    this.load.image("buttons", "./assets/help.png");
-    this.load.multiatlas("textures", "./assets/textures.json", "./assets/");
-    this.load.image("tick", "./assets/tick.png");
-    this.load.image("coin", "./assets/coin.png");
-
-    this.load.spritesheet("player", "./assets/player.png", {
-      frameWidth: 20,
-      frameHeight: 29,
-    });
-  }
-
   create() {
     this.add.image(300, 200, "background").setScale(2);
     this.add.image(550, 150, "buttons").setScale(1);

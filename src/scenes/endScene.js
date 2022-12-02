@@ -10,9 +10,9 @@ class End extends Phaser.Scene {
     this.points = data.points;
   }
 
-  preload() {
-    this.load.image("restartbtn", "./assets/restartbtn.png");
-  }
+  // preload() {
+  //   this.load.image("restartbtn", "./assets/restartbtn.png");
+  // }
 
   create() {
     this.add.image(300, 150, "backgroundStart");

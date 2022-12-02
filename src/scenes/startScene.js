@@ -23,6 +23,19 @@ class Start extends Phaser.Scene {
     this.load.image("playBtn", "./assets/startbtn.png");
     this.load.image("demake", "./assets/demake.png")
 
+    this.load.image("background", "./assets/sand2.png");
+    this.load.image("buttons", "./assets/help.png");
+    this.load.multiatlas("textures", "./assets/textures.json", "./assets/");
+    this.load.image("tick", "./assets/tick.png");
+    this.load.image("coin", "./assets/coin.png");
+
+    this.load.spritesheet("player", "./assets/player.png", {
+      frameWidth: 20,
+      frameHeight: 29,
+    });
+
+    this.load.image("restartbtn", "./assets/restartbtn.png");
+
     this.load.audio("intro", "./assets/intro.ogg");
     this.load.audio("restaurant", "./assets/restaurant.ogg");
     this.load.audio("blender", "./assets/blender_sfx.ogg");

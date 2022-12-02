@@ -21,6 +21,7 @@ class Start extends Phaser.Scene {
     this.load.image("backgroundStart", "./assets/backgroundEnd.png");
     this.load.image("logo", "./assets/overcooked-logo.webp");
     this.load.image("playBtn", "./assets/startbtn.png");
+    this.load.image("demake", "./assets/demake.png")
 
     this.load.audio("intro", "./assets/intro.ogg");
     this.load.audio("restaurant", "./assets/restaurant.ogg");
@@ -35,8 +36,9 @@ class Start extends Phaser.Scene {
   create() {
     this.add.image(300, 170, "backgroundStart").setScale(0.8);
     this.add.image(320, 180, "logo");
+    this.add.image(520, 210, "demake").setScale(0.4);
 
-    let startButton = this.add
+    this.add
       .image(320, 300, "playBtn")
       .setScale(0.1)
       .setInteractive()

@@ -73,7 +73,7 @@ class Orders {
   update(scene) {
     this.cnt += 1;
 
-    if (this.cnt % 350 === 0 && this.cnt < 5000) {
+    if ((this.cnt === 1 || this.cnt % 300 === 0) && this.cnt < 5000) {
       const random = possibleOrders[this.randomIntFromInterval(0, 2)];
       const order = new Order(this.game, random);
       this.orders.push(order);
